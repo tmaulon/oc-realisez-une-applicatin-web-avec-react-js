@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+export type TFeedBack = "hidden" | "justMatched" | "justMismatched" | "visible";
 export interface CardProps {
-	feedback: string;
+	feedback: TFeedBack;
 	card: string;
-	onClick: (card: string) => void;
+	index: number;
+	onClick: (index: number) => void;
 }
 
 const HIDDEN_SYMBOL = "❓";
@@ -12,10 +14,15 @@ const HIDDEN_SYMBOL = "❓";
 export const Card: React.FC<CardProps> = ({
 	card,
 	feedback,
+	index,
 	onClick,
 	children,
 }) => (
-	<CardWrapper feedback={feedback} onClick={() => onClick(card)}>
+	<CardWrapper
+		className={feedback}
+		feedback={feedback}
+		onClick={() => onClick(index)}
+	>
 		<Symbol>{feedback === "hidden" ? HIDDEN_SYMBOL : card}</Symbol>
 	</CardWrapper>
 );
